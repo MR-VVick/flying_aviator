@@ -1,4 +1,4 @@
-import Sea from '@components/sea';
+import Sea from './components/sea';
 import Sky from '@components/sky';
 import Airplane from '@components/airplane';
 import createLights from "@utils/helpers/lights";
