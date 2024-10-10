@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Colors } from "@utils/contants/constant";
+import { colors } from "@utils/contants/colors";
 import Pilot from './Pilot';
 
 export default class Airplane {
@@ -35,7 +35,7 @@ export default class Airplane {
 		geomCockpit.setIndex(indices);
 		geomCockpit.computeVertexNormals();
 
-		var matCockpit = new THREE.MeshPhongMaterial({ color: Colors.red, flatShading: true });
+		var matCockpit = new THREE.MeshPhongMaterial({ color: colors.red, flatShading: true });
 		matCockpit.side = THREE.DoubleSide
 		var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
 		cockpit.castShadow = true;
@@ -45,7 +45,7 @@ export default class Airplane {
 
 		// Create the engine
 		var geomEngine = new THREE.BoxGeometry(20, 50, 50, 1, 1, 1);
-		var matEngine = new THREE.MeshPhongMaterial({ color: Colors.white, flatShading: true });
+		var matEngine = new THREE.MeshPhongMaterial({ color: colors.white, flatShading: true });
 		var engine = new THREE.Mesh(geomEngine, matEngine);
 		engine.position.x = 40;
 		engine.castShadow = true;
@@ -54,7 +54,7 @@ export default class Airplane {
 
 		// Create the tail
 		var geomTailPlane = new THREE.BoxGeometry(15, 20, 5, 1, 1, 1);
-		var matTailPlane = new THREE.MeshPhongMaterial({ color: Colors.red, flatShading: true });
+		var matTailPlane = new THREE.MeshPhongMaterial({ color: colors.red, flatShading: true });
 		var tailPlane = new THREE.Mesh(geomTailPlane, matTailPlane);
 		tailPlane.position.set(-35, 25, 0);
 		tailPlane.castShadow = true;
@@ -65,7 +65,7 @@ export default class Airplane {
 
 		// Create the wing
 		var geomSideWing = new THREE.BoxGeometry(35, 8, 150, 1, 1, 1);
-		var matSideWing = new THREE.MeshPhongMaterial({ color: Colors.red, flatShading: true });
+		var matSideWing = new THREE.MeshPhongMaterial({ color: colors.red, flatShading: true });
 		var sideWing = new THREE.Mesh(geomSideWing, matSideWing);
 		sideWing.castShadow = true;
 		sideWing.receiveShadow = true;
@@ -74,7 +74,7 @@ export default class Airplane {
 
 		//windshield
 		var geomWindshield = new THREE.BoxGeometry(3,15,20,1,1,1);
-		var matWindshield = new THREE.MeshPhongMaterial({color:Colors.white,transparent:true, opacity:.3, flatShading: true});;
+		var matWindshield = new THREE.MeshPhongMaterial({color:colors.white,transparent:true, opacity:.3, flatShading: true});;
 		var windshield = new THREE.Mesh(geomWindshield, matWindshield);
 		windshield.position.set(5,27,0);
 	  
@@ -85,14 +85,14 @@ export default class Airplane {
 
 		// propeller
 		var geomPropeller = new THREE.BoxGeometry(20, 10, 10, 1, 1, 1);
-		var matPropeller = new THREE.MeshPhongMaterial({ color: Colors.brown, flatShading: true });
+		var matPropeller = new THREE.MeshPhongMaterial({ color: colors.brown, flatShading: true });
 		this.propeller = new THREE.Mesh(geomPropeller, matPropeller);
 		this.propeller.castShadow = true;
 		this.propeller.receiveShadow = true;
 
 		// blades
 		var geomBlade = new THREE.BoxGeometry(1,80,10,1,1,1);
-		var matBlade = new THREE.MeshPhongMaterial({color:Colors.brownDark, flatShading: true });
+		var matBlade = new THREE.MeshPhongMaterial({color:colors.brownDark, flatShading: true });
 		var blade1 = new THREE.Mesh(geomBlade, matBlade);
 		blade1.position.set(8,0,0);
 
@@ -112,18 +112,18 @@ export default class Airplane {
 
 		//wheel
 		var wheelProtecGeom = new THREE.BoxGeometry(30,15,10,1,1,1);
-		var wheelProtecMat = new THREE.MeshPhongMaterial({color:Colors.red, flatShading: true});
+		var wheelProtecMat = new THREE.MeshPhongMaterial({color:colors.red, flatShading: true});
 		var wheelProtecR = new THREE.Mesh(wheelProtecGeom,wheelProtecMat);
 		wheelProtecR.position.set(15,-20,25);
 		this.mesh.add(wheelProtecR);
 
 		var wheelTireGeom = new THREE.BoxGeometry(24,24,4);
-		var wheelTireMat = new THREE.MeshPhongMaterial({color:Colors.brownDark, flatShading: true});
+		var wheelTireMat = new THREE.MeshPhongMaterial({color:colors.brownDark, flatShading: true});
 		var wheelTireR = new THREE.Mesh(wheelTireGeom,wheelTireMat);
 		wheelTireR.position.set(15,-28,25);
 
 		var wheelAxisGeom = new THREE.BoxGeometry(10,10,6);
-		var wheelAxisMat = new THREE.MeshPhongMaterial({color:Colors.brown, flatShading: true});
+		var wheelAxisMat = new THREE.MeshPhongMaterial({color:colors.brown, flatShading: true});
 		var wheelAxis = new THREE.Mesh(wheelAxisGeom,wheelAxisMat);
 		wheelTireR.add(wheelAxis);
 
@@ -145,7 +145,7 @@ export default class Airplane {
 		//suspension
 		var suspensionGeom = new THREE.BoxGeometry(4,20,4);
 		suspensionGeom.applyMatrix4(new THREE.Matrix4().makeTranslation(0,10,0))
-		var suspensionMat = new THREE.MeshPhongMaterial({color:Colors.red, flatShading: true});
+		var suspensionMat = new THREE.MeshPhongMaterial({color:colors.red, flatShading: true});
 		var suspension = new THREE.Mesh(suspensionGeom,suspensionMat);
 		suspension.position.set(-46,-15,0);
 		suspension.rotation.z = -.3;

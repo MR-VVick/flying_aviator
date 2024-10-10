@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Colors } from "@utils/contants/constant";
+import { colors } from "@utils/contants/colors";
 
 export default class Sea {
 	constructor() {
@@ -33,7 +33,7 @@ export default class Sea {
 	  }
   
 	  const mat = new THREE.MeshPhongMaterial({
-		color: Colors.blue,
+		color: colors.blue,
 		transparent: true,
 		opacity: 0.8,
 		flatShading: true,

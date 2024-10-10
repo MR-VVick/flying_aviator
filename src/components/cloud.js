@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Colors } from "@utils/contants/constant";
+import { colors } from "@utils/contants/colors";
 
 export default class Cloud {
     constructor() {
@@ -12,7 +12,7 @@ export default class Cloud {
 
         // create a material; a simple white material will do the trick
         var mat = new THREE.MeshPhongMaterial({
-            color: Colors.white,
+            color: colors.white,
         });
 
         // duplicate the geometry a random number of times

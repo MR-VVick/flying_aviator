@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Colors } from "@utils/contants/constant";
+import { colors } from "@utils/contants/colors";
 
 export default class Pilot {
     constructor() {
@@ -8,19 +8,19 @@ export default class Pilot {
         this.angleHairs = 0;
 
         var bodyGeom = new THREE.BoxGeometry(15, 15, 15);
-        var bodyMat = new THREE.MeshPhongMaterial({ color: Colors.brown, flatShading: true });
+        var bodyMat = new THREE.MeshPhongMaterial({ color: colors.brown, flatShading: true });
         var body = new THREE.Mesh(bodyGeom, bodyMat);
         body.position.set(2, -12, 0);
 
         this.mesh.add(body);
 
         var faceGeom = new THREE.BoxGeometry(10, 10, 10);
-        var faceMat = new THREE.MeshLambertMaterial({ color: Colors.pink });
+        var faceMat = new THREE.MeshLambertMaterial({ color: colors.pink });
         var face = new THREE.Mesh(faceGeom, faceMat);
         this.mesh.add(face);
 
         var hairGeom = new THREE.BoxGeometry(4, 4, 4);
-        var hairMat = new THREE.MeshLambertMaterial({ color: Colors.brown });
+        var hairMat = new THREE.MeshLambertMaterial({ color: colors.brown });
         var hair = new THREE.Mesh(hairGeom, hairMat);
         hair.geometry.applyMatrix4(new THREE.Matrix4().makeTranslation(0, 2, 0));
         var hairs = new THREE.Object3D();
@@ -56,7 +56,7 @@ export default class Pilot {
         this.mesh.add(hairs);
 
         var glassGeom = new THREE.BoxGeometry(5, 5, 5);
-        var glassMat = new THREE.MeshLambertMaterial({ color: Colors.brown });
+        var glassMat = new THREE.MeshLambertMaterial({ color: colors.brown });
         var glassR = new THREE.Mesh(glassGeom, glassMat);
         glassR.position.set(6, 0, 3);
         var glassL = glassR.clone();
