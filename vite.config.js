@@ -6,7 +6,7 @@ export default {
       outDir: '../dist',        // Output directory for build files, placed outside 'src'
       emptyOutDir: true,        // Cleans the output directory before building
       rollupOptions: {
-        input: '../public/index.html',  // Set entry point as 'public/index.html'
+        input: '/index.html',  // Set entry point as 'public/index.html'
       },
     },
     server: {
