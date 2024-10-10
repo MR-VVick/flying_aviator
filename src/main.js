@@ -1,6 +1,6 @@
-import Airplane from "./components/Airplane";
-import Sea from "./components/Sea";
-import Sky from "./components/Sky";
+import Airplane from "./components/Airplane-1";
+import Sea from "./components/Sea-1";
+import Sky from "./components/Sky-1";
 import createLights from "./utils/helpers/createLights";
 import createScene from "./utils/helpers/createScene";
 
