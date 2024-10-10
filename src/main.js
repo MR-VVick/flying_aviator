@@ -1,8 +1,8 @@
-import Airplane from "./components/airplane";
-import Sea from "./components/sea";
-import Sky from "./components/sky";
-import createLights from "./utils/helpers/lights";
-import createScene from "./utils/helpers/scene";
+import Sea from '@components/Sea';
+import Sky from '@components/Sky';
+import Airplane from '@components/Airplane';
+import createLights from "@utils/helpers/lights";
+import createScene from "@utils/helpers/scene";
 
 function init() {
 	const { scene, camera, renderer, WIDTH, HEIGHT } = createScene();

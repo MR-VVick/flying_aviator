@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { Colors } from "../utils/contants/constant";
+import { Colors } from "@utils/contants/constant";
 import Pilot from './pilot';
 
 export default class Airplane {
@@ -92,7 +92,7 @@ export default class Airplane {
 
 		// blades
 		var geomBlade = new THREE.BoxGeometry(1,80,10,1,1,1);
-		var matBlade = new THREE.MeshPhongMaterial({color:Colors.brownDark, shading:THREE.FlatShading});
+		var matBlade = new THREE.MeshPhongMaterial({color:Colors.brownDark, flatShading: true });
 		var blade1 = new THREE.Mesh(geomBlade, matBlade);
 		blade1.position.set(8,0,0);
 

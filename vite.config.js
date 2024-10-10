@@ -1,3 +1,5 @@
+import path from 'path';
+
 export default {
     root: 'src/',              // The root directory for Vite, where your main files reside
     publicDir: '../public/',    // Updated public directory, where static assets like index.html and favicon.ico are placed
@@ -15,9 +17,9 @@ export default {
     },
     resolve: {
       alias: {
-        '@assets': 'src/assets',      // Alias for assets directory
-        '@components': 'src/components', // Alias for components directory
-        '@utils': 'src/utils',    // Alias for helpers directory
+        '@assets': path.resolve(__dirname, 'src/assets'),       // Correct alias for assets directory
+        '@components': path.resolve(__dirname, 'src/components'),  // Correct alias for components directory
+        '@utils': path.resolve(__dirname, 'src/utils'), 
       },
     },
 }
