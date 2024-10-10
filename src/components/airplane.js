@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { Colors } from "@utils/contants/constant";
-import Pilot from './pilot';
+import Pilot from './Pilot';
 
 export default class Airplane {
 	constructor() {

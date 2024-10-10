@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import Cloud from "./cloud";
+import Cloud from "./Cloud";
 
 export default class Sky {
     constructor() {

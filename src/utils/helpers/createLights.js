@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import createScene from "./scene";
+import createScene from "./createScene";
 
 export default function createLights() {
     const { scene } = createScene();
