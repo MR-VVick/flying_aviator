@@ -15,9 +15,9 @@ export default {
     },
     resolve: {
       alias: {
-        '@assets': '/src/assets',      // Alias for assets directory
-        '@components': '/src/components', // Alias for components directory
-        '@utils': '/src/utils',    // Alias for helpers directory
+        '@assets': path.resolve(__dirname, 'src/assets'),
+        '@components': path.resolve(__dirname, 'src/components'),
+        '@utils': path.resolve(__dirname, 'src/utils'), 
       },
     },
 }
