@@ -17,9 +17,9 @@ export default {
     },
     resolve: {
       alias: {
-        '@assets': path.resolve(__dirname, './src/assets'),       // Correct alias for assets directory
-        '@components': path.resolve(__dirname, './src/components'),  // Correct alias for components directory
-        '@utils': path.resolve(__dirname, './src/utils'), 
+        '/@assets': path.resolve(__dirname, './src/assets'),       // Correct alias for assets directory
+        '/@components': path.resolve(__dirname, './src/components'),  // Correct alias for components directory
+        '/@utils': path.resolve(__dirname, './src/utils'), 
       },
     },
 }

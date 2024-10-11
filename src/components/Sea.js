@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { colors } from "@utils/contants/colors";
+import { colors } from "../utils/contants/colors";
 
 export default class Sea {
 	constructor() {
