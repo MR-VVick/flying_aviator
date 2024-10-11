@@ -24,8 +24,8 @@ export default class Airplane {
 
 		const indices = [
 			0, 1, 2, 2, 3, 0, // Front face
-			4, 5, 6, 6, 7, 4, // Back face
-			0, 1, 5, 5, 4, 0, // Bottom face
+			4, 7, 6, 6, 5, 4, // Back face
+			0, 4, 5, 5, 1, 0, // Bottom face
 			3, 2, 6, 6, 7, 3, // Top face
 			0, 3, 7, 7, 4, 0, // Left face
 			1, 2, 6, 6, 5, 1  // Right face
@@ -36,7 +36,6 @@ export default class Airplane {
 		geomCockpit.computeVertexNormals();
 
 		var matCockpit = new THREE.MeshPhongMaterial({ color: colors.red, flatShading: true });
-		matCockpit.side = THREE.DoubleSide
 		var cockpit = new THREE.Mesh(geomCockpit, matCockpit);
 		cockpit.castShadow = true;
 		cockpit.receiveShadow = true;

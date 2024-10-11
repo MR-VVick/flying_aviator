@@ -5,15 +5,10 @@ export default {
     publicDir: '../public/',    // Updated public directory, where static assets like index.html and favicon.ico are placed
     base: './',                 // Ensures relative paths for assets, helpful when deploying to subdirectories
     build: {
-      sourcemap: true,
       outDir: '../dist',        // Output directory for build files, placed outside 'src'
       emptyOutDir: true,        // Cleans the output directory before building
       rollupOptions: {
-        main: path.resolve(__dirname, 'src/index.html'),
-        // List your main component files here
-        Airplane: path.resolve(__dirname, 'src/components/Airplane.js'),
-        Pilot: path.resolve(__dirname, 'src/components/Pilot.js'),
-        Sea: path.resolve(__dirname, 'src/components/Sea.js'),
+        input: '/index.html',  // Set entry point as 'public/index.html'
       },
     },
     server: {
