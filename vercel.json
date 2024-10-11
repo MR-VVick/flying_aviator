@@ -1,0 +1,13 @@
+{
+    "builds": [
+      {
+        "src": "src/index.html",
+        "use": "@vercel/static-build"
+      }
+    ],
+    "routes": [
+      { "src": "/favicon.ico", "dest": "/favicon.ico" },
+      { "src": "/(.*)", "dest": "/index.html" }
+    ]
+}
+  
