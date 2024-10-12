@@ -8,6 +8,7 @@ import createScene from "./utils/helpers/createScene";
 import { gameVar } from "./utils/contants/gameVar";
 import Particle from "./components/Particle";
 import ParticlesHolder from "./components/ParticleHolder";
+import CoinsHolder from "./components/CoinHolder";
 
 class Game {
     constructor() {
@@ -26,10 +27,10 @@ class Game {
         // Initialize other properties
         this.airplane = new Airplane();
         this.particlesHolder = new ParticlesHolder();
-        this.ambientLight = 
         this.mousePos = { x: 0, y: 0 };
         this.oldTime = 0;
         this.enemiesHolder = new EnemiesHolder(this.airplane, this.particlesHolder, this.ambientLight);
+        this.coinsHolder = new CoinsHolder(20, this.airplane, this.particlesHolder);
 
         this.init();
     }
@@ -40,6 +41,7 @@ class Game {
         this.createSky();
         this.createAirplane();
         this.createEnemies();
+        this.createCoins();
         this.createParticles();
 
         // Add event listeners for mouse and touch movements
@@ -55,19 +57,19 @@ class Game {
 
     createSea() {
         this.sea = new Sea();
-        this.sea.mesh.position.y = -600;
+        this.sea.mesh.position.y = -gameVar.seaRadius;;
         this.scene.add(this.sea.mesh);
     }
 
     createSky() {
         this.sky = new Sky();
-        this.sky.mesh.position.y = -600;
+        this.sky.mesh.position.y = -gameVar.seaRadius;
         this.scene.add(this.sky.mesh);
     }
 
     createAirplane() {
         this.airplane.mesh.scale.set(0.25, 0.25, 0.25);
-        this.airplane.mesh.position.y = 20;
+        this.airplane.mesh.position.y = gameVar.planeDefaultHeight;
         this.scene.add(this.airplane.mesh);
     }
 
@@ -79,11 +81,11 @@ class Game {
         this.scene.add(this.enemiesHolder.mesh);
     }
 
+    createCoins(){
+        this.scene.add(this.coinsHolder.mesh)
+    }
+
     createParticles(){
-        for (var i=0; i<10; i++){
-          var particle = new Particle();
-          this.particlesHolder.particlesPool.push(particle);
-        }
         this.scene.add(this.particlesHolder.mesh)
     }
 
@@ -103,15 +105,31 @@ class Game {
     }
 
     updatePlane() {
-        gameVar.planeSpeed = this.normalize(this.mousePos.x, -0.5, 0.5, gameVar.planeMinSpeed, gameVar.planeMaxSpeed);
-        const targetY = this.normalize(this.mousePos.y, -0.75, 0.75, 25, 175);
-        const targetX = this.normalize(this.mousePos.x, -0.75, 0.75, -100, 100);
+        gameVar.planeSpeed = this.normalize(this.mousePos.x,-.5,.5,gameVar.planeMinSpeed, gameVar.planeMaxSpeed);
+        let targetY = this.normalize(this.mousePos.y,-.75,.75,gameVar.planeDefaultHeight-gameVar.planeAmpHeight, gameVar.planeDefaultHeight+gameVar.planeAmpHeight);
+        let targetX = this.normalize(this.mousePos.x,-1,1,-gameVar.planeAmpWidth*.7, -gameVar.planeAmpWidth);
+      
+        gameVar.planeCollisionDisplacementX += gameVar.planeCollisionSpeedX;
+        targetX += gameVar.planeCollisionDisplacementX;
+      
+      
+        gameVar.planeCollisionDisplacementY += gameVar.planeCollisionSpeedY;
+        targetY += gameVar.planeCollisionDisplacementY;
+      
+        this.airplane.mesh.position.y += (targetY-this.airplane.mesh.position.y)*gameVar.deltaTime*gameVar.planeMoveSensivity;
+        this.airplane.mesh.position.x += (targetX-this.airplane.mesh.position.x)*gameVar.deltaTime*gameVar.planeMoveSensivity;
+      
+        this.airplane.mesh.rotation.z = (targetY-this.airplane.mesh.position.y)*gameVar.deltaTime*gameVar.planeRotXSensivity;
+        this.airplane.mesh.rotation.x = (this.airplane.mesh.position.y-targetY)*gameVar.deltaTime*gameVar.planeRotZSensivity;
 
-        this.airplane.mesh.position.y += (targetY - this.airplane.mesh.position.y) * 0.1;
-        this.airplane.mesh.rotation.z = (targetY - this.airplane.mesh.position.y) * 0.0128;
-        this.airplane.mesh.rotation.x = (this.airplane.mesh.position.y - targetY) * 0.0064;
-
-        this.airplane.propeller.rotation.x += 0.3;
+        this.camera.fov = this.normalize(this.mousePos.x,-1,1,40, 80);
+        this.camera.updateProjectionMatrix ()
+        this.camera.position.y += (this.airplane.mesh.position.y - this.camera.position.y)*gameVar.deltaTime*gameVar.cameraSensivity;
+      
+        gameVar.planeCollisionSpeedX += (0-gameVar.planeCollisionSpeedX)*gameVar.deltaTime * 0.03;
+        gameVar.planeCollisionDisplacementX += (0-gameVar.planeCollisionDisplacementX)*gameVar.deltaTime *0.01;
+        gameVar.planeCollisionSpeedY += (0-gameVar.planeCollisionSpeedY)*gameVar.deltaTime * 0.03;
+        gameVar.planeCollisionDisplacementY += (0-gameVar.planeCollisionDisplacementY)*gameVar.deltaTime *0.01;
         this.airplane.pilot.updateHairs();
     }
 
@@ -120,7 +138,8 @@ class Game {
         let dv = vmax - vmin;
         let pc = (nv - vmin) / dv;
         let dt = tmax - tmin;
-        return tmin + pc * dt;
+        let tv = tmin + (pc*dt);
+        return tv;
     }
 
     updateCameraFov() {
@@ -147,13 +166,40 @@ class Game {
         this.updateCameraFov();
         this.updateDistance();
 
+        if (Math.floor(gameVar.distance)%gameVar.distanceForCoinsSpawn == 0 && Math.floor(gameVar.distance) > gameVar.coinLastSpawn){
+            gameVar.coinLastSpawn = Math.floor(gameVar.distance);
+            this.coinsHolder.spawnCoins();
+        }
+      
+        if (Math.floor(gameVar.distance)%gameVar.distanceForSpeedUpdate == 0 && Math.floor(gameVar.distance) > gameVar.speedLastUpdate){
+            gameVar.speedLastUpdate = Math.floor(gameVar.distance);
+            gameVar.targetBaseSpeed += gameVar.incrementSpeedByTime*gameVar.deltaTime;
+        }
+
         if (Math.floor(gameVar.distance) % gameVar.distanceForEnnemiesSpawn === 0 && Math.floor(gameVar.distance) > gameVar.enemyLastSpawn) {
             gameVar.enemyLastSpawn = Math.floor(gameVar.distance);
             this.enemiesHolder.spawnEnemies();
         }
 
+        if (Math.floor(gameVar.distance)%gameVar.distanceForLevelUpdate == 0 && Math.floor(gameVar.distance) > gameVar.levelLastUpdate){
+            gameVar.levelLastUpdate = Math.floor(gameVar.distance);
+            gameVar.level++;
+            // fieldLevel.innerHTML = Math.floor(game.level);
+    
+            gameVar.targetBaseSpeed = gameVar.initSpeed + gameVar.incrementSpeedByLevel*gameVar.level
+        }
+
         gameVar.baseSpeed += (gameVar.targetBaseSpeed - gameVar.baseSpeed) * gameVar.deltaTime * 0.02;
         gameVar.speed = gameVar.baseSpeed * gameVar.planeSpeed;
+
+        this.airplane.propeller.rotation.x +=.2 + gameVar.planeSpeed * gameVar.deltaTime*.005;
+        this.sea.mesh.rotation.z += gameVar.speed*gameVar.deltaTime;//*game.seaRotationSpeed;
+
+        if ( this.sea.mesh.rotation.z > 2*Math.PI)  this.sea.mesh.rotation.z -= 2*Math.PI;
+
+        this.ambientLight.intensity += (.5 - this.ambientLight.intensity)*gameVar.deltaTime*0.005;
+
+        this.coinsHolder.rotateCoins();
         this.enemiesHolder.rotateEnemies();
 
         this.renderer.render(this.scene, this.camera);

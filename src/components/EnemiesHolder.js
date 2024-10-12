@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import { colors } from "../utils/contants/colors";
 import Enemy from './Enemy';
 import { gameVar } from '../utils/contants/gameVar';
+import Particle from './Particle';
 
 export default class EnemiesHolder {
   constructor(airplane, particlesHolder, ambientLight) {
@@ -11,13 +12,17 @@ export default class EnemiesHolder {
     this.airplane = airplane;
     this.particlesHolder = particlesHolder;
     this.ambientLight = ambientLight;
+
+    for (var i=0; i<10; i++){
+      var particle = new Particle();
+      this.particlesHolder.particlesPool.push(particle);
+    }
   }
 
   
   // Spawn Enemies
   spawnEnemies() {
     const nEnemies = gameVar.level;
-    console.log('hello')
     // console.log(`Spawning ${nEnemies} enemies for level ${gameVar.level}`);
     for (let i = 0; i < nEnemies; i++) {
       let enemy;
